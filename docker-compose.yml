@@ -16,13 +16,14 @@ services:
         - ./sipp:/sipp
 
     evapi:
-      image: python:latest
+      build:
+        context: ./evapi
       working_dir: /evapi
       stop_signal: SIGKILL
       tty: true
       volumes:
         - ./evapi:/evapi
-      entrypoint: sh
+      #entrypoint: sh
         #- python3
         #- evapi.py
 
