@@ -1,0 +1,32 @@
+services:
+
+    kamailio:
+      build: ./kamailio
+      command: -de -n 4 -m 1024
+      volumes:
+        - ./kamailio:/etc/kamailio
+
+    sipp:
+      build: ./kamailio
+      entrypoint: sh
+      working_dir: /sipp
+      tty: true
+      stop_signal: SIGKILL
+      volumes:
+        - ./sipp:/sipp
+
+    evapi:
+      image: python:latest
+      working_dir: /evapi
+      stop_signal: SIGKILL
+      tty: true
+      volumes:
+        - ./evapi:/evapi
+      entrypoint: sh
+        #- python3
+        #- evapi.py
+
+
+    www:
+      image: deminy/delayed-http-response
+
